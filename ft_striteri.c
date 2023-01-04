@@ -6,7 +6,7 @@
 /*   By: mmazzocc <mmazzocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 17:59:56 by mmazzocc          #+#    #+#             */
-/*   Updated: 2022/11/29 18:00:16 by mmazzocc         ###   ########.fr       */
+/*   Updated: 2023/01/04 04:27:52 by mmazzocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 
 	i = 0;
 	if (!(s && f))
-		return (0);
+		return ;
 	while (s[i])
 	{
 		(*f)(i, &s[i]);

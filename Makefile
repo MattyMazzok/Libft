@@ -6,9 +6,11 @@
 #    By: mmazzocc <mmazzocc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 01:25:39 by mmazzocc          #+#    #+#              #
-#    Updated: 2022/11/29 18:01:11 by mmazzocc         ###   ########.fr        #
+#    Updated: 2023/01/04 04:43:32 by mmazzocc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+NAME			= libft.a
 
 SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c ft_putchar_fd.c ft_split.c \
 					ft_strlcat.c ft_strncmp.c ft_substr.c ft_atoi.c ft_isalpha.c \
@@ -17,33 +19,35 @@ SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c ft_putchar_fd.c ft_split.c \
 					ft_memmove.c ft_putnbr_fd.c  ft_strdup.c  ft_strlen.c  ft_strrchr.c \
 					ft_toupper.c ft_calloc.c  ft_isdigit.c ft_memchr.c  ft_memset.c  \
 					ft_putstr_fd.c  ft_strjoin.c ft_strmapi.c ft_strtrim.c ft_striteri.c \
-OBJS			= $(SRCS:.c=.o)
 
-BONUS			=	ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
+SRCS_B			=	ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
 					ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
-					ft_lstmap.c ft_lstnew.c ft_lstsize.c
-BONUS_OBJS		= $(BONUS:.c=.o)
+					ft_lstmap.c ft_lstnew.c ft_lstsize.c \
 
-CC				= gcc
-RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror
+OBJS	= $(SRCS:.c=.o)
+OBJS_B	= $(SRCS_B:.c=.o)
+RM		= rm -f
+LIBC	= ar -rcs
+FLAGS	= -Wall -Wextra -Werror
+INCS	= .
 
-NAME			= libft.a
+.c.o :
+	${CC} ${FLAGS} -c $< -o ${<:.c=.o} -I${INCS}
 
-all:			$(NAME)
+$(NAME): ${OBJS}
+	${LIBC} $(NAME) $(OBJS)
 
-$(NAME):		$(OBJS)
-				ar rcs $(NAME) $(OBJS)
+all: $(NAME)
+
+bonus: $(NAME) $(OBJS_B)
+	${LIBC} $(NAME) $(OBJS_B)
+
+fclean: clean
+	$(RM) $(NAME) $(bonus)
 
 clean:
-				$(RM) $(OBJS) $(BONUS_OBJS)
+	$(RM) -f $(OBJS) $(OBJS_B)
 
-fclean:			clean
-				$(RM) $(NAME)
+re:	fclean all
 
-re:				fclean $(NAME)
-
-bonus:			$(OBJS) $(BONUS_OBJS)
-				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
-
-.PHONY:			all clean fclean re bonus
+.PHONY: all bonus clean fclean re .c.ou
